@@ -16,7 +16,7 @@ class CreatePemesanansTable extends Migration
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('invoice');
-            $table->unsignedBigInteger('id_pengguna');
+            $table->unsignedBigInteger('id_user');
             $table->integer('sub_total');
             $table->timestamps();
         });

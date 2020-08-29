@@ -15,7 +15,7 @@ class CreateAlamatsTable extends Migration
     {
         Schema::create('alamats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_pengguna');
+            $table->unsignedBigInteger('id_user');
             $table->string('provinsi');
             $table->string('kota');
             $table->text('alamat_lengkap');

@@ -18,7 +18,7 @@ class CreateTokosTable extends Migration
             $table->string('nama');
             $table->string('gambar');
             $table->text('deskripsi');
-            $table->unsignedBigInteger('id_pengguna');
+            $table->unsignedBigInteger('id_user');
             $table->timestamps();
         });
 
