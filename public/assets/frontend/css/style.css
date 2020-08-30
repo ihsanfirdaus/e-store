@@ -356,7 +356,7 @@ textarea.input {
 \*----------------------------*/
 
 .header-logo {
-    /* display: inline-block; */
+    display: inline-block;
     margin-right: 15px;
 }
 
@@ -372,6 +372,7 @@ textarea.input {
 .header-search {
     display: inline-block;
     padding: 15px 0px;
+    width: 400px;
     max-width: 400px;
 }
 
@@ -625,7 +626,7 @@ textarea.input {
 
 .dropdown.default-dropdown>.custom-menu {
     border-top: 2px solid #F8694A;
-    left: 50%;
+    /* left: 50%; */
     -webkit-transform: translateX(-50%) translateY(15px);
     -ms-transform: translateX(-50%) translateY(15px);
     transform: translateX(-50%) translateY(15px);

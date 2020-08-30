@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container">
+    @if ($message = Session::get('error'))
+      <div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button> 
+        <strong>{{ $message }}</strong>
+      </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

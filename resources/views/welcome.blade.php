@@ -28,13 +28,6 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}" />
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
 </head>
 
 <body>
@@ -47,7 +40,7 @@
 					<!-- Logo -->
 					<div class="header-logo">
 						<a class="logo" href="#">
-							<h1 style="margin-top: 10px"><span style="color: #F8694A">E</span>-STORE</h1>
+							<img src="{{ asset('assets/frontend/img/logo.png') }}" alt="">
 						</a>
 					</div>
 					<!-- /Logo -->
@@ -65,20 +58,42 @@
 					<ul class="header-btns">
 						<!-- Account -->
 						<li class="header-account dropdown default-dropdown">
-							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+							@guest
+							<div aria-expanded="true">
 								<div class="header-btns-icon">
 									<i class="fa fa-user-o"></i>
 								</div>
-								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+								<strong class="text-uppercase">My Account</i></strong>
 							</div>
-							<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-							<ul class="custom-menu">
+							<a href="{{ url('/login') }}" class="text-uppercase">Login</a> / <a href="{{ url('register') }}" class="text-uppercase">Join</a>
+							@else
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true" style="max-width: 200px">
+								<div class="header-btns-icon">
+									<i class="fa fa-user-o"></i>
+								</div>
+								<strong class="text-uppercase">{{ Auth::user()->username }} <i class="fa fa-caret-down"></i></strong>
+								{{-- STATUS AKUN --}}
+								@if (Auth::user()->status_akun == 1)
+								<span style="color: green">(Aktif)</span>
+								@else
+								<span style="color: red">(Belum aktif)</span>
+								@endif
+							</div>
+							{{-- SALDO AKUN --}}
+							<span>RP 734.000</span>
+							@endguest		
+							<ul class="custom-menu" style="left: 50%">
+								<li><a href="{{ url('/aktivasi-akun') }}"><i class="fa fa-check-circle"></i> Aktivasi Akun</a></li>
 								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
 								<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
 								<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
 								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-								<li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-								<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+								<li><a href="{{ route('logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+									<i class="fa fa-power-off"></i> Logout</a>
+								</li>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
 							</ul>
 						</li>
 						<!-- /Account -->
@@ -140,7 +155,7 @@
 		<!-- container -->
 	</header>
 	<!-- /HEADER -->
-
+	
 	<!-- NAVIGATION -->
 	<div id="navigation">
 		<!-- container -->
@@ -1472,7 +1487,6 @@
 	<script src="{{ asset('assets/frontend/js/nouislider.min.js')}}"></script>
 	<script src="{{ asset('assets/frontend/js/jquery.zoom.min.js')}}"></script>
 	<script src="{{ asset('assets/frontend/js/main.js')}}"></script>
-
 </body>
 
 </html>
