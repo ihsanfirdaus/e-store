@@ -26,6 +26,10 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
+    // KATEGORI
     Route::resource('kategori', 'Backend\KategoriController');
     Route::get('/kategori/delete/{id}','Backend\KategoriController@destroy');
+    // PRODUK
+    Route::resource('produk', 'Backend\ProdukController');
+    Route::get('/produk/delete/{id}','Backend\ProdukController@destroy');
 });

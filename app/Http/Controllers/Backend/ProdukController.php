@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Kategori;
 use Illuminate\Support\Str;
-
+use File;
 class ProdukController extends Controller
 {
     /**
@@ -16,7 +17,11 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        //
+        $produk = Produk::orderBy('created_at','desc')->get();
+
+        return view('admin/produk/index',[
+            'produk' => $produk
+        ]);
     }
 
     /**
@@ -26,7 +31,11 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        $listKategori = Kategori::latest()->get();
+
+        return view('admin/produk/create',[
+            'listKategori' => $listKategori
+        ]);
     }
 
     /**
@@ -37,7 +46,26 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produk = new Produk();
+        $produk->nama = $request->nama;
+        $produk->slug = Str::slug($request->nama.'-');
+        $produk->id_kategori = $request->id_kategori;
+        $produk->deskripsi = $request->deskripsi;
+        $produk->warna = $request->warna;
+        $produk->harga = $request->harga;
+        $produk->berat = $request->berat;
+
+        $gambar = $request->file('gambar');
+        
+        if($gambar != null){
+            $filename = Str::random(3).$gambar->getClientOriginalName();
+            $gambar->move(public_path('/assets/gambar/'),$filename);
+            $produk->gambar = $filename;
+        }
+
+        $produk->save();
+
+        return redirect()->route('produk.index')->with('success','Produk berhasil disimpan');
     }
 
     /**
