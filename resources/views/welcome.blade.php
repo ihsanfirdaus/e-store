@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>E-Store - Belanja Mahal Kapan Saja</title>
+	<title>E-Store - Belanja Murah Kapan Saja</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -84,7 +84,7 @@
 							<ul class="custom-menu" style="left: 50%">
 								@auth
 									@if (Auth::user()->status_akun == 0)
-									<li><a href="{{ url('/aktivasi-akun') }}"><i class="fa fa-check-circle"></i> Aktivasi Akun</a></li>
+									<li><a href="{{ url('/user/aktivasi-akun') }}"><i class="fa fa-check-circle"></i> Aktivasi Akun</a></li>
 									@else
 									<!-- -->
 									@endif

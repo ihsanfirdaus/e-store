@@ -1,5 +1,5 @@
 @php
-    $this->title = 'Edit Kategori';
+    $this->title = 'Edit Produk';
 @endphp
 
 @extends('layouts.backend.main')
@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="container">
-        <form action="{{route('kategori.update', $kategori->id)}}" method="POST">
+        <form action="{{route('produk.update', $produk->id)}}" method="POST">
             <input type="hidden" name="_method" value="PATCH">
             @csrf
             <div class="card card-outline card-primary">
@@ -22,8 +22,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="" class="control-label">Nama Kategori</label> 
-                                <input type="text" value="{{$kategori->nama}}" name="kategori" class="form-control">  
+                                <label for="" class="control-label">Nama produk</label> 
+                                <input type="text" value="{{$produk->nama}}" name="produk" class="form-control">  
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success">Edit</button>
