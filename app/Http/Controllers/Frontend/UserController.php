@@ -6,12 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
+    public function profilUser(Request $request)
+    {
+        // $user = Auth::user();
+        
+        return view('user.profil');
+    }
+
     public function formAktivasiAkun(Request $request)
     {
-       return view('auth.aktivasi-akun');
+       return view('auth/aktivasi-akun');
     }
 
     public function aktivasiAkun(Request $request)

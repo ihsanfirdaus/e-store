@@ -67,24 +67,29 @@
 							</div>
 							<a href="{{ url('/login') }}" class="text-uppercase">Login</a> / <a href="{{ url('register') }}" class="text-uppercase">Join</a>
 							@else
-							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true" style="max-width: 200px">
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
 								<div class="header-btns-icon">
 									<i class="fa fa-user-o"></i>
 								</div>
 								<strong class="text-uppercase">{{ Auth::user()->username }} <i class="fa fa-caret-down"></i></strong>
 								{{-- STATUS AKUN --}}
+								<br>
 								@if (Auth::user()->status_akun == 1)
-								<span style="color: green">(Aktif)</span>
+								<small class="text-muted" style="color: green;">(Aktif)</small>
 								@else
-								<span style="color: red">(Belum aktif)</span>
+								<small class="text-muted" style="color: red;">(Belum aktif)</small>
 								@endif
 							</div>
-							{{-- SALDO AKUN --}}
-							<span>RP 734.000</span>
 							@endguest		
 							<ul class="custom-menu" style="left: 50%">
-								<li><a href="{{ url('/aktivasi-akun') }}"><i class="fa fa-check-circle"></i> Aktivasi Akun</a></li>
-								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+								@auth
+									@if (Auth::user()->status_akun == 0)
+									<li><a href="{{ url('/aktivasi-akun') }}"><i class="fa fa-check-circle"></i> Aktivasi Akun</a></li>
+									@else
+									<!-- -->
+									@endif
+								@endauth
+								<li><a href="{{ url('/user/profil') }}"><i class="fa fa-user-o"></i> My Account</a></li>
 								<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
 								<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
 								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
