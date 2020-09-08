@@ -31,7 +31,11 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        return view('admin\produk\create');
+        $listKategori = Kategori::orderBy('nama','asc')->get();
+        
+        return view('admin/produk/create',[
+            'listKategori' => $listKategori
+        ]);
     }
 
     /**
