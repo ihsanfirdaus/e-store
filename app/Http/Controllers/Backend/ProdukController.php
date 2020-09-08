@@ -32,7 +32,7 @@ class ProdukController extends Controller
     public function create()
     {
         $listKategori = Kategori::orderBy('nama','asc')->get();
-        
+
         return view('admin/produk/create',[
             'listKategori' => $listKategori
         ]);
@@ -48,6 +48,7 @@ class ProdukController extends Controller
     {
         $produk = new Produk();
         $produk->nama = $request->nama;
+        $produk->id_kategori = $request->id_kategori;
         $produk->slug = Str::slug($request->nama.'-');
         $produk->deskripsi = $request->deskripsi;
         $produk->warna = $request->warna;

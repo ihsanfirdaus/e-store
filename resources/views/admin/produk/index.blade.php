@@ -40,7 +40,7 @@
                                         <img src="{{ asset('assets/gambar/'.$data->gambar) }}" alt="" class="rounded" width="70px" height="70px">
                                     </td>
                                     <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->deskripsi }}</td>
+                                    <td>{{ $data->kategori->nama }}</td>
                                     <td style="text-align: center">
                                         <a href="{{ route('produk.edit',$data->id) }}" title="Edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pen"></i></a> &nbsp;
                                         <a href="{{ url('/admin/produk/delete/'.$data->id) }}" title="Hapus" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash-alt"></i></a>
