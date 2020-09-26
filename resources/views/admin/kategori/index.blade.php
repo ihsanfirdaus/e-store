@@ -18,31 +18,17 @@
         <div class="col-lg-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <a href="{{ route('kategori.create') }}" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Tambah</a>
+                    <a href="{{ route('kategori.create') }}" class="btn btn-success btn-md"><i class="fa fa-plus-circle"></i> Tambah</a>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered" id="table_kategori">
+                    <table class="table table-bordered" id="datatable">
                         <thead>
-                            <th>No</th>
                             <th style="text-align: center">Nama</th>
                             <th style="text-align: center">Slug</th>
                             <th style="text-align: center">Aksi</th>
                         </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($kategori as $data)
-                                <tr>
-                                    <td width="10px">{{ $no++ }}</td>
-                                    <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->slug }}</td>
-                                    <td style="text-align: center">
-                                        <a href="{{ route('kategori.edit',$data->id) }}" title="Edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pen"></i></a> &nbsp;
-                                        <a href="{{ url('/admin/kategori/delete/'.$data->id) }}" title="Hapus" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                        <tbody id="tableBody">
+        
                         </tbody>
                     </table>
                 </div>
@@ -55,10 +41,28 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $("#table_kategori").DataTable({
-            "responsive": true,
-            "autoWidth": false,
+
+            $("#datatable").DataTable({
+                "processing": true,
+                "ajax": {
+                    "url": '{{ url('api/get-kategori') }}',
+                    "dataSrc": ""
+                },
+                "columns": [
+                    {"data" : "nama"},
+                    {"data" : "slug"},
+                    {
+                        mRender: function (data, type, row) {
+                            return '<div style="text-align:center">'+
+                                        '<a href="" data-id="' + row.id + '" data-toggle="tooltip" title="Ubah"><i class="fa fa-edit"></i></a> &nbsp;'+ 
+                                        '<a href="" data-id="' + row.id + '"><i class="fa fa-trash-alt" data-toggle="tooltip" title="Hapus"></i></a>'+
+                                    '</div>';
+                        }
+                    }
+                ]
+                
             });
+
         })
     </script>
 @endsection

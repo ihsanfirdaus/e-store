@@ -15,6 +15,14 @@ class KategoriController extends Controller
      * @return \Illuminate\Http\Response
      */
      
+
+    public function getData()
+    {
+        $kategori = Kategori::latest()->get();
+
+        return response()->json($kategori);
+    }
+    
     public function index()
     {
         $kategori = Kategori::orderBy('created_at','DESC')->get();
