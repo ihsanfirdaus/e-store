@@ -25,7 +25,7 @@
                         <thead>
                             <th style="text-align: center">Nama Produk</th>
                             <th style="text-align: center">Kategori</th>
-                            <th style="text-align: center">Deskripsi</th>
+                            <th style="text-align: center">Gambar</th>
                             <th style="text-align: center">Aksi</th>
                         </thead>
                         <tbody>
@@ -47,6 +47,37 @@
     <script>
         $(document).ready(function() {
             
+            var table = $("#datatable").DataTable({
+                "processing": true,
+                "ajax": {
+                    "url": '{{ url('api/get-produk') }}',
+                    "dataSrc": ""
+                },
+                "columns": [
+                    {"data" : "gambar",
+                    "render" : function(data, type, row) {
+                        return '<img src="{{ asset('assets/gambar') }}'+'/'+row.gambar+'">';
+                    },
+                    },
+                    {"data" : "nama"},
+                    {"data" : "kategori.nama"},
+                    {
+                        mRender: function (data, type, row) {
+                            return '<div style="text-align:center">'+
+                                        '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Ubah" class="btnEdit"><i class="fa fa-edit"></i></a> &nbsp;'+ 
+                                        '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Hapus" class="btnDelete"><i class="fa fa-trash-alt"></i></a>'+
+                                    '</div>';
+                        }
+                    }
+                ]
+            });
+
+            function getImg(data, type, full, meta) {
+                //
+                return '<img src="{{ url('/assets/gambar') }}" />';
+            }
+
+
             // When button add on click
             $("#btnAdd").on("click", function() {
                 $("#process").val('create');
@@ -70,27 +101,42 @@
                 })
             });
 
-            // Get Image Preview
-            $('#gambar').on('change', function(){ 
-                   
-                var data = $(this)[0].files; 
-                
-                $.each(data, function(index, file){ 
-                    if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ 
-                        var fRead = new FileReader(); 
-                        fRead.onload = (function(file){ 
-                        return function(e) {
-                            var img = $('<img/>').addClass('thumb').attr('src', e.target.result); 
-                            $('#img-preview').append(img); 
-                        };
-                        })(file);
-                        fRead.readAsDataURL(file); 
+            //
+
+            // When button submit or save on click
+            $("#formProduk").on("submit", function(event) {
+                event.preventDefault();
+
+                $("#btnSave").html("Loading ...");
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                     
-            });
 
-            //
+                $.ajax({
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(this),
+                    url: '{{ route('produk.store') }}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function(message){
+                        $("#formProduk").trigger("reset");
+                        $("#modal-success").modal('hide');
+                        table.ajax.reload();
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                })
+            });
 
         });
     </script>

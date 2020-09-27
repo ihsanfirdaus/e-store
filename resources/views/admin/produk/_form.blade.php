@@ -6,7 +6,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
         </div>
-        <form id="formProduk">
+        <form id="formProduk" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <input type="hidden" name="process" id="process">
@@ -27,7 +27,6 @@
                     <div class="col-lg-6 form-group">
                         <label for="gambar" class="control-label">Gambar Produk</label>
                         <input type="file" name="gambar" id="gambar" class="form-control">
-                        <div id="img-preview"></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">

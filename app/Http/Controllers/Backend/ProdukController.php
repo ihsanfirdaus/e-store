@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Kategori;
 use Illuminate\Support\Str;
+
 class ProdukController extends Controller
 {
+    public function getData()
+    {
+        $model = Produk::with('kategori')->latest()->get();
+
+        return response()->json($model);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,25 +23,7 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $produk = Produk::orderBy('created_at', 'desc')->get();
-
-        return view('admin/produk/index', [
-            'produk' => $produk
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $listKategori = Kategori::orderBy('nama', 'asc')->get();
-
-        return view('admin/produk/create', [
-            'listKategori' => $listKategori
-        ]);
+        return view('admin/produk/index');
     }
 
     /**
@@ -45,26 +34,32 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $produk = new Produk();
-        $produk->nama = $request->nama;
-        $produk->id_kategori = $request->id_kategori;
-        $produk->slug = Str::slug($request->nama . '-');
-        $produk->deskripsi = $request->deskripsi;
-        $produk->warna = $request->warna;
-        $produk->harga = $request->harga;
-        $produk->berat = $request->berat;
+        if ($request->post('process') == 'create') {
+            $model = new Produk();
+            $message = 'Berhasil menambahkan data produk';
+        } elseif ($request->post('process') == 'edit') {
+            $model = Produk::find($request->produk_id);
+            $message = 'Berhasil mengubah data produk';
+        }
+        $model->nama = $request->nama;
+        $model->id_kategori = $request->id_kategori;
+        $model->slug = Str::slug($request->nama . '-');
+        $model->deskripsi = $request->deskripsi;
+        $model->warna = $request->warna;
+        $model->harga = $request->harga;
+        $model->berat = $request->berat;
 
         $gambar = $request->file('gambar');
 
         if ($gambar != null) {
-            $filename = time().'_'. $gambar->getClientOriginalName();
+            $filename = date("d-M-Y") . '_' . $gambar->getClientOriginalName();
             $gambar->move(public_path('/assets/gambar/'), $filename);
-            $produk->gambar = $filename;
+            $model->gambar = $filename;
         }
 
-        $produk->save();
-
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil disimpan');
+        if ($model->save()) {
+            return response()->json($message);
+        }
     }
 
     /**
@@ -86,10 +81,10 @@ class ProdukController extends Controller
      */
     public function edit($id)
     {
-        $produk = Produk::FindOrFail($id);
+        $model = Produk::FindOrFail($id);
 
         return view('/admin/produk/edit', [
-            'produk' => $produk
+            'produk' => $model
         ]);
     }
 
@@ -102,23 +97,23 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $produk = Produk::FindOrFail($id);
-        $produk->nama = $request->nama;
-        $produk->slug = Str::slug($request->nama . '-');
-        $produk->deskripsi = $request->deskripsi;
-        $produk->warna = $request->warna;
-        $produk->harga = $request->harga;
-        $produk->berat = $request->berat;
+        $model = Produk::FindOrFail($id);
+        $model->nama = $request->nama;
+        $model->slug = Str::slug($request->nama . '-');
+        $model->deskripsi = $request->deskripsi;
+        $model->warna = $request->warna;
+        $model->harga = $request->harga;
+        $model->berat = $request->berat;
 
         $gambar = $request->file('gambar');
 
         if ($gambar != null) {
-            $filename = time().'_'. $gambar->getClientOriginalName();
+            $filename = time() . '_' . $gambar->getClientOriginalName();
             $gambar->move(public_path('/assets/gambar/'), $filename);
-            $produk->gambar = $filename;
+            $model->gambar = $filename;
         }
 
-        $produk->save();
+        $model->save();
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil diedit');
     }

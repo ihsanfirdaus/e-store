@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/get-kategori','Backend\KategoriController@getData');
+Route::get('/get-produk','Backend\ProdukController@getData');
