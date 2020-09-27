@@ -9,16 +9,16 @@
 @endpush
 
 @push('breadcump-title')
-    {{ $this->title }}
+    <i class="fa fa-list"></i> Kategori
 @endpush
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card card-outline card-primary">
+            <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('kategori.create') }}" class="btn btn-success btn-md"><i class="fa fa-plus-circle"></i> Tambah</a>
+                    <button type="button" id="btnAdd" data-toggle="modal" class="btn btn-success btn-md"><i class="fa fa-plus-circle"></i> Tambah Kategori</button>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered" id="datatable">
@@ -36,13 +36,24 @@
         </div>
     </div>
 </div>
+
+<!-- Include Modal -->
+    @include('admin.kategori._form')
+<!-- /Include Modal -->
 @endsection
 
 @section('js')
     <script>
         $(document).ready(function() {
 
-            $("#datatable").DataTable({
+            // When button add on click
+            $("#btnAdd").on("click", function() {
+                $("#process").val('create');
+                $("#modal-success").modal('show');
+                $(".modal-title").html("Tambah Kategori");
+            });
+
+            var table = $("#datatable").DataTable({
                 "processing": true,
                 "ajax": {
                     "url": '{{ url('api/get-kategori') }}',
@@ -54,13 +65,77 @@
                     {
                         mRender: function (data, type, row) {
                             return '<div style="text-align:center">'+
-                                        '<a href="" data-id="' + row.id + '" data-toggle="tooltip" title="Ubah"><i class="fa fa-edit"></i></a> &nbsp;'+ 
-                                        '<a href="" data-id="' + row.id + '"><i class="fa fa-trash-alt" data-toggle="tooltip" title="Hapus"></i></a>'+
+                                        '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Ubah" class="btnEdit"><i class="fa fa-edit"></i></a> &nbsp;'+ 
+                                        '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Hapus" class="btnDelete"><i class="fa fa-trash-alt"></i></a>'+
                                     '</div>';
                         }
                     }
                 ]
                 
+            });
+            // When button submit or save on click
+            $("#formCategory").on("submit", function(event) {
+                event.preventDefault();
+
+                $("#btnSave").html("Loading ...");
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    data: $("#formCategory").serialize(),
+                    url: '{{ route('kategori.store') }}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function(message){
+                        $("#formCategory").trigger("reset");
+                        $("#modal-success").modal('hide');
+                        table.ajax.reload();
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                })
+            });
+            // When button edit on click
+            $("body").on("click",".btnEdit", function() {
+                var category_id = $(this).data('id');
+                
+                $.get("{{ route('kategori.index') }}" +'/edit' + '/' + category_id +'/', function (data) {
+                    $("#process").val('edit');
+                    $("#btnSave").html("Simpan");
+                    $(".modal-title").html("Ubah Kategori");
+                    $("#modal-success").modal('show');
+                    $("#kategori_id").val(data.id);
+                    $("#nama").val(data.nama);
+                });
+
+            });
+            // When button delete on click
+            $("body").on("click",".btnDelete", function() {
+                var category_id = $(this).data('id');
+
+                $.ajax({
+                    url: "{{ route('kategori.index') }}" + '/delete'+ '/' + category_id + '/',
+                    type: 'GET',
+                    success: function(message) {
+                        table.ajax.reload();
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
             });
 
         })

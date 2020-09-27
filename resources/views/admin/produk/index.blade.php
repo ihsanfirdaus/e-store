@@ -9,44 +9,27 @@
 @endpush
 
 @push('breadcump-title')
-    {{ $this->title }}
+    <i class="fa fa-shopping-bag"></i> Produk
 @endpush
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card card-outline card-primary">
+            <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('produk.create') }}" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Tambah</a>
+                    <button type="button" id="btnAdd" data-toggle="modal" class="btn btn-success btn-md"><i class="fa fa-plus-circle"></i> Tambah Produk</button>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered" id="table_produk">
+                    <table class="table table-bordered" id="datatable">
                         <thead>
-                            <th>No</th>
-                            <th style="text-align: center">Gambar</th>
-                            <th style="text-align: center">Nama</th>
+                            <th style="text-align: center">Nama Produk</th>
+                            <th style="text-align: center">Kategori</th>
                             <th style="text-align: center">Deskripsi</th>
                             <th style="text-align: center">Aksi</th>
                         </thead>
                         <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($produk as $data)
-                                <tr>
-                                    <td width="10px">{{ $no++ }}</td>
-                                    <td style="text-align: center"> 
-                                        <img src="{{ asset('assets/gambar/'.$data->gambar) }}" alt="" class="rounded" width="70px" height="70px">
-                                    </td>
-                                    <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->kategori->nama }}</td>
-                                    <td style="text-align: center">
-                                        <a href="{{ route('produk.edit',$data->id) }}" title="Edit" class="btn btn-sm btn-outline-warning"><i class="fa fa-pen"></i></a> &nbsp;
-                                        <a href="{{ url('/admin/produk/delete/'.$data->id) }}" title="Hapus" class="btn btn-sm btn-outline-danger"><i class="fa fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -54,15 +37,61 @@
         </div>
     </div>
 </div>
+
+<!-- Include Modal-->
+    @include('admin.produk._form')
+<!-- /Include Modal-->
 @endsection
 
 @section('js')
     <script>
         $(document).ready(function() {
-            $("#table_produk").DataTable({
-            "responsive": true,
-            "autoWidth": false,
+            
+            // When button add on click
+            $("#btnAdd").on("click", function() {
+                $("#process").val('create');
+                $("#modal-success").modal('show');
+                $(".modal-title").html("Tambah Produk");
             });
-        })
+
+            let dropdown = $('#selectCategory');
+
+            dropdown.empty();
+
+            dropdown.append('<option selected="true" disabled>- Pilih -</option>');
+            dropdown.prop('selectedIndex', 0);
+
+            const url = '{{ url('api/get-kategori') }}';
+
+            // Populate dropdown with list of categories
+            $.getJSON(url, function (response) {
+                $.each(response, function (key, data) {
+                    dropdown.append($('<option></option>').attr('value', data.id).text(data.nama));
+                })
+            });
+
+            // Get Image Preview
+            $('#gambar').on('change', function(){ 
+                   
+                var data = $(this)[0].files; 
+                
+                $.each(data, function(index, file){ 
+                    if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ 
+                        var fRead = new FileReader(); 
+                        fRead.onload = (function(file){ 
+                        return function(e) {
+                            var img = $('<img/>').addClass('thumb').attr('src', e.target.result); 
+                            $('#img-preview').append(img); 
+                        };
+                        })(file);
+                        fRead.readAsDataURL(file); 
+                    }
+                });
+                     
+            });
+
+            //
+
+        });
     </script>
 @endsection

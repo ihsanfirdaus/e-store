@@ -18,18 +18,14 @@ class KategoriController extends Controller
 
     public function getData()
     {
-        $kategori = Kategori::latest()->get();
+        $model = Kategori::latest()->get();
 
-        return response()->json($kategori);
+        return response()->json($model);
     }
     
     public function index()
     {
-        $kategori = Kategori::orderBy('created_at','DESC')->get();
-
-        return view('admin/kategori/index',[
-            'kategori' => $kategori
-        ]);
+        return view('admin/kategori/index');
     }
 
     /**
@@ -49,24 +45,24 @@ class KategoriController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                
-        $kategori = new Kategori();
-        $kategori->nama = $request->kategori;
-        $kategori->slug = Str::slug($request->kategori.'-');
-        $kategori->save();
+    {        
+        if($request->post('process') == 'create'){
 
-        return redirect()->route('kategori.index')->with('success','Kategori berhasil disimpan');
-    }
+            $model = new Kategori();
+            $message = 'Berhasil menambahkan data';
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        }elseif($request->post('process') == 'edit'){
+
+            $model = Kategori::find($request->kategori_id);
+            $message = 'Berhasil mengubah data';
+
+        }
+        $model->nama = $request->nama;
+        $model->slug = Str::slug($request->nama.'-');
+        
+        if($model->save()){
+            return response()->json($message);
+        }
     }
 
     /**
@@ -77,29 +73,9 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        //id = 3
-        $kategori = Kategori::findOrFail($id);
-
-        return view('admin/kategori/edit',[
-            'kategori' => $kategori
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $kategori = Kategori::findOrFail($id);
-        $kategori->nama = $request->kategori;
-        $kategori->slug = Str::slug($request->kategori,'-');
-        $kategori->save();
-
-        return redirect()->route('kategori.index')->with('success','Kategori berhasil diubah');
+        $model = Kategori::findOrFail($id);
+    
+        return response()->json($model);
     }
 
     /**
@@ -110,10 +86,10 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $model = Kategori::findOrFail($id);
 
-        $kategori->delete();
-
-        return redirect()->route('kategori.index');
+        if($model->delete()){
+            return response()->json('Berhasil menghapus data');
+        }
     }
 }

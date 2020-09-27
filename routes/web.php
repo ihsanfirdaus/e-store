@@ -43,9 +43,13 @@ Route::group(['prefix' => 'admin'], function () {
     //DASHBOARD
     Route::get('/dashboard', 'Backend\DashboardController@index')->name('admin.dashboard');
     // KATEGORI
-    Route::resource('kategori', 'Backend\KategoriController');
+    Route::get('/kategori','Backend\KategoriController@index')->name('kategori.index');
+    Route::post('/kategori/store','Backend\KategoriController@store')->name('kategori.store');
+    Route::get('/kategori/edit/{id}','Backend\KategoriController@edit');
     Route::get('/kategori/delete/{id}', 'Backend\KategoriController@destroy');
     // PRODUK
-    Route::resource('produk', 'Backend\ProdukController');
+    Route::get('/produk','Backend\ProdukController@index')->name('produk.index');
+    Route::post('/produk/store','Backend\ProdukController@store')->name('produk.store');
+    Route::get('/produk/edit/{id}','Backend\ProdukController@edit');
     Route::get('/produk/delete/{id}', 'Backend\ProdukController@destroy');
 });
