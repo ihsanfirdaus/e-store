@@ -23,9 +23,10 @@
                 <div class="card-body">
                     <table class="table table-bordered" id="datatable">
                         <thead>
+                            <th style="text-align: center">Gambar</th>
                             <th style="text-align: center">Nama Produk</th>
                             <th style="text-align: center">Kategori</th>
-                            <th style="text-align: center">Gambar</th>
+                            <th style="text-align: center">Harga</th>
                             <th style="text-align: center">Aksi</th>
                         </thead>
                         <tbody>
@@ -46,6 +47,8 @@
 @section('js')
     <script>
         $(document).ready(function() {
+
+            $(".rupiah").mask("000.000.000",{reverse: true});
             
             var table = $("#datatable").DataTable({
                 "processing": true,
@@ -54,16 +57,22 @@
                     "dataSrc": ""
                 },
                 "columns": [
-                    {"data" : "gambar",
-                    "render" : function(data, type, row) {
-                        return '<img src="{{ asset('assets/gambar') }}'+'/'+row.gambar+'">';
-                    },
+                    {
+                        "orderable": false,
+                        mRender: function(data, type, row) {
+                            return '<img class="img-center" width="50%" src="{{ asset('assets/gambar') }}'+'/'+row.gambar+'">';
+                        }
                     },
                     {"data" : "nama"},
                     {"data" : "kategori.nama"},
                     {
+                        mRender: function(data, type, row) {
+                            return '<div class="align-center">Rp '+row.harga+'</div>';
+                        }
+                    },
+                    {
                         mRender: function (data, type, row) {
-                            return '<div style="text-align:center">'+
+                            return '<div class="align-center">'+
                                         '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Ubah" class="btnEdit"><i class="fa fa-edit"></i></a> &nbsp;'+ 
                                         '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Hapus" class="btnDelete"><i class="fa fa-trash-alt"></i></a>'+
                                     '</div>';
@@ -71,11 +80,6 @@
                     }
                 ]
             });
-
-            function getImg(data, type, full, meta) {
-                //
-                return '<img src="{{ url('/assets/gambar') }}" />';
-            }
 
 
             // When button add on click
@@ -101,13 +105,9 @@
                 })
             });
 
-            //
-
             // When button submit or save on click
             $("#formProduk").on("submit", function(event) {
                 event.preventDefault();
-
-                $("#btnSave").html("Loading ...");
 
                 $.ajaxSetup({
                     headers: {
@@ -133,6 +133,26 @@
                             title: message,
                             showConfirmButton: false,
                             timer: 2000
+                        });
+                    }
+                })
+            });
+
+            // When button delete on click
+            $("body").on("click",".btnDelete", function() {
+                var product_id = $(this).data('id');
+
+                $.ajax({
+                    url: "{{ route('produk.index') }}" + '/delete'+ '/' + product_id + '/',
+                    type: 'GET',
+                    success: function(message) {
+                        table.ajax.reload();
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 1500
                         });
                     }
                 })

@@ -77,8 +77,6 @@
             $("#formCategory").on("submit", function(event) {
                 event.preventDefault();
 
-                $("#btnSave").html("Loading ...");
-
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -86,7 +84,10 @@
                 });
 
                 $.ajax({
-                    data: $("#formCategory").serialize(),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(this),
                     url: '{{ route('kategori.store') }}',
                     type: 'POST',
                     dataType: 'JSON',

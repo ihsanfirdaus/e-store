@@ -20,9 +20,13 @@
   <link rel="stylesheet" href="{{ asset('assets/backend/dist/css/adminlte.min.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style>
-    .thumb{
-      width: 50%;
-      margin-left: 5rem;
+    .img-center{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .align-center{
+      text-align: center;
     }
   </style>
 </head>
@@ -84,7 +88,7 @@
   <script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('assets/backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('assets/backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-  <script src="{{ asset('assets/backend/plugins/inputmask/min/jquery.inputmask.bundle.min.js')}}"></script>
+  <script src="{{ asset('assets/backend/plugins/jquery-mask/jquery.mask.min.js')}}"></script>
   <script src="{{ asset('assets/backend/dist/js/adminlte.js') }}"></script>
  
   <!-- AdminLTE for demo purposes -->

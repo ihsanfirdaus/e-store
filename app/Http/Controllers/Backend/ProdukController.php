@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produk;
-use App\Models\Kategori;
 use Illuminate\Support\Str;
 
 class ProdukController extends Controller
@@ -46,7 +45,7 @@ class ProdukController extends Controller
         $model->slug = Str::slug($request->nama . '-');
         $model->deskripsi = $request->deskripsi;
         $model->warna = $request->warna;
-        $model->harga = $request->harga;
+        $model->harga = str_replace('.','',$request->harga);
         $model->berat = $request->berat;
 
         $gambar = $request->file('gambar');
@@ -126,6 +125,10 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Produk::find($id);
+
+        if($model->delete()){
+            return response()->json('Berhasil menghapus data produk');
+        }
     }
 }

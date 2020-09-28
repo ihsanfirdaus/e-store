@@ -18,7 +18,7 @@ class KategoriController extends Controller
 
     public function getData()
     {
-        $model = Kategori::latest()->get();
+        $model = Kategori::orderBy('nama','asc')->get();
 
         return response()->json($model);
     }

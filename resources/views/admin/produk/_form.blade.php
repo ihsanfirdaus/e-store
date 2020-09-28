@@ -35,11 +35,11 @@
                         </div>
                         <div class="form-group">
                             <label for="warna" class="control-label">Berat Produk</label>
-                            <input type="text" name="berat" id="berat" class="form-control">
+                            <input type="text" name="berat" id="berat" placeholder="gr" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="warna" class="control-label">Harga Produk</label>
-                            <input type="text" name="harga" id="harga" class="form-control">
+                            <input type="text" name="harga" id="harga" placeholder="Rp" class="form-control rupiah">
                         </div>
                     </div>
                 </div>
