@@ -3,9 +3,9 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 d-flex justify-content-center">
         <div class="image">
-          <img src="{{ asset('assets/frontend/img/logo.png') }}" style="width: 5em">
+          <h3><span style="color: #007bff">E-</span><span>STORE</span></h3>
         </div>
       </div>
 
@@ -15,7 +15,7 @@
           <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ url('admin/dashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -24,7 +24,7 @@
           </li>
           <li class="nav-header">MENU UTAMA</li>
           <li class="nav-item">
-            <a href="{{ url('/admin/kategori') }}" class="nav-link">
+            <a href="{{ url('/admin/kategori') }}" class="nav-link {{ request()->is('admin/kategori') ? 'active' : '' }}">
               <i class="nav-icon fa fa-list"></i>
               <p>
                 Kategori
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/produk') }}" class="nav-link">
+            <a href="{{ url('admin/produk') }}" class="nav-link {{ request()->is('admin/produk') ? 'active' : '' }}">
               <i class="nav-icon fa fa-shopping-bag"></i>
               <p>
                 Produk
@@ -40,7 +40,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/toko') }}" class="nav-link">
+            <a href="{{ url('admin/toko') }}" class="nav-link {{ request()->is('admin/toko') ? 'active' : '' }}">
               <i class="nav-icon fa fa-store"></i>
               <p>
                 Toko
@@ -48,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/pemesanan') }}" class="nav-link">
+            <a href="{{ url('admin/pemesanan') }}" class="nav-link {{ request()->is('admin/pemesanan') ? 'active' : '' }}">
               <i class="nav-icon fa fa-shopping-cart"></i>
               <p>
                 Pemesanan
@@ -58,7 +58,7 @@
 
           <li class="nav-header">MENU LAINNYA</li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="{{ url('admin/user') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
               <i class="nav-icon fa fa-users"></i>
               <p>
                 User

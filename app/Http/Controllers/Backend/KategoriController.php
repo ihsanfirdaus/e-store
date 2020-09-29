@@ -41,24 +41,24 @@ class KategoriController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {        
-        if($request->post('process') == 'create'){
+        if($req->post('process') == 'create'){
 
             $model = new Kategori();
             $message = 'Berhasil menambahkan data';
 
-        }elseif($request->post('process') == 'edit'){
+        }elseif($req->post('process') == 'edit'){
 
-            $model = Kategori::find($request->kategori_id);
+            $model = Kategori::find($req->kategori_id);
             $message = 'Berhasil mengubah data';
 
         }
-        $model->nama = $request->nama;
-        $model->slug = Str::slug($request->nama.'-');
+        $model->nama = $req->nama;
+        $model->slug = Str::slug($req->nama.'-');
         
         if($model->save()){
             return response()->json($message);

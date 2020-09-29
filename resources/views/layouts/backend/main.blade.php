@@ -14,7 +14,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/backend/dist/css/adminlte.min.css') }}">
@@ -82,7 +83,7 @@
   <script src="{{ asset('assets/backend/plugins/jquery/jquery.min.js') }}"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script src="{{ asset('assets/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/backend/plugins/select2/js/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/backend/plugins/select2/js/select2.full.min.js') }}"></script>
   <script src="{{ asset('assets/backend/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
   <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -97,6 +98,8 @@
   <script>
       $(function() {
           $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+          $(".select2").select2();
       })
   </script>
   @yield('js')

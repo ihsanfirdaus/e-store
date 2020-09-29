@@ -27,6 +27,8 @@
                     <div class="col-lg-6 form-group">
                         <label for="gambar" class="control-label">Gambar Produk</label>
                         <input type="file" name="gambar" id="gambar" class="form-control">
+                        <br>
+                        <div id="preview"></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">

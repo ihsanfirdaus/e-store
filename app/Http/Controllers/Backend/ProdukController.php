@@ -28,27 +28,32 @@ class ProdukController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        if ($request->post('process') == 'create') {
+        if ($req->post('process') == 'create') {
+
             $model = new Produk();
             $message = 'Berhasil menambahkan data produk';
-        } elseif ($request->post('process') == 'edit') {
-            $model = Produk::find($request->produk_id);
-            $message = 'Berhasil mengubah data produk';
-        }
-        $model->nama = $request->nama;
-        $model->id_kategori = $request->id_kategori;
-        $model->slug = Str::slug($request->nama . '-');
-        $model->deskripsi = $request->deskripsi;
-        $model->warna = $request->warna;
-        $model->harga = str_replace('.','',$request->harga);
-        $model->berat = $request->berat;
 
-        $gambar = $request->file('gambar');
+        } elseif ($req->post('process') == 'edit') {
+
+            $model = Produk::find($req->produk_id);
+            $message = 'Berhasil mengubah data produk';
+            
+        }
+
+        $model->nama = $req->nama;
+        $model->id_kategori = $req->id_kategori;
+        $model->slug = Str::slug($req->nama . '-');
+        $model->deskripsi = $req->deskripsi;
+        $model->warna = $req->warna;
+        $model->harga = str_replace('.','',$req->harga);
+        $model->berat = $req->berat;
+
+        $gambar = $req->file('gambar');
 
         if ($gambar != null) {
             $filename = date("d-M-Y") . '_' . $gambar->getClientOriginalName();
@@ -69,7 +74,9 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        //
+        $model = Produk::findOrFail($id);
+
+        return response()->json($model);
     }
 
     /**
@@ -80,42 +87,11 @@ class ProdukController extends Controller
      */
     public function edit($id)
     {
-        $model = Produk::FindOrFail($id);
-
-        return view('/admin/produk/edit', [
-            'produk' => $model
-        ]);
+        $model = Produk::with('kategori')->findOrFail($id);
+        
+        return response()->json($model);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $model = Produk::FindOrFail($id);
-        $model->nama = $request->nama;
-        $model->slug = Str::slug($request->nama . '-');
-        $model->deskripsi = $request->deskripsi;
-        $model->warna = $request->warna;
-        $model->harga = $request->harga;
-        $model->berat = $request->berat;
-
-        $gambar = $request->file('gambar');
-
-        if ($gambar != null) {
-            $filename = time() . '_' . $gambar->getClientOriginalName();
-            $gambar->move(public_path('/assets/gambar/'), $filename);
-            $model->gambar = $filename;
-        }
-
-        $model->save();
-
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil diedit');
-    }
 
     /**
      * Remove the specified resource from storage.

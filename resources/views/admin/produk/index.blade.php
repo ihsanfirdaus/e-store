@@ -74,7 +74,7 @@
                         mRender: function (data, type, row) {
                             return '<div class="align-center">'+
                                         '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Ubah" class="btnEdit"><i class="fa fa-edit"></i></a> &nbsp;'+ 
-                                        '<a href="javascript:void(0)" data-id="' + row.id + '" data-toggle="tooltip" title="Hapus" class="btnDelete"><i class="fa fa-trash-alt"></i></a>'+
+                                        '<a href="javascript:void(0)" data-id="' + row.id + '" data-name="' + row.nama + '" data-toggle="tooltip" title="Hapus" class="btnDelete"><i class="fa fa-trash-alt"></i></a>'+
                                     '</div>';
                         }
                     }
@@ -84,6 +84,15 @@
 
             // When button add on click
             $("#btnAdd").on("click", function() {
+                $("#nama").val('');
+                $("#gambar").val('');
+                $("#preview").html('');
+                $("#warna").val('');
+                $("#berat").val('');
+                $("#harga").val('');
+                $("#deskripsi").val('');
+                $("#product_id").val('');
+                $("#selectCategory").val(0);
                 $("#process").val('create');
                 $("#modal-success").modal('show');
                 $(".modal-title").html("Tambah Produk");
@@ -93,7 +102,7 @@
 
             dropdown.empty();
 
-            dropdown.append('<option selected="true" disabled>- Pilih -</option>');
+            dropdown.append('<option value="0" selected="true" disabled>- Pilih -</option>');
             dropdown.prop('selectedIndex', 0);
 
             const url = '{{ url('api/get-kategori') }}';
@@ -101,7 +110,7 @@
             // Populate dropdown with list of categories
             $.getJSON(url, function (response) {
                 $.each(response, function (key, data) {
-                    dropdown.append($('<option></option>').attr('value', data.id).text(data.nama));
+                    dropdown.append($('<option id="option"></option>').attr('value', data.id).text(data.nama));
                 })
             });
 
@@ -138,24 +147,77 @@
                 })
             });
 
+            // When button edit on click
+            $("body").on("click",".btnEdit", function() {
+                var product_id = $(this).data('id');
+                var html = ''
+                $.get("{{ route('produk.index') }}" +'/edit' + '/' + product_id +'/', function (data) {
+                    $("#process").val('edit');
+                    $("#btnSave").html("Simpan");
+                    $(".modal-title").html("Ubah Produk");
+                    $("#modal-success").modal('show');
+                    $("#produk_id").val(data.id);
+                    $("#nama").val(data.nama);
+                    $("#selectCategory").val(data.id_kategori).change();
+                    $("#warna").val(data.warna);
+                    $("#berat").val(data.berat);
+                    $("#harga").val(data.harga);
+                    $("#deskripsi").val(data.deskripsi);
+                    if(data.gambar != null){
+                        html += '<img class="img-center" width="50%" src="{{ asset('assets/gambar') }}'+'/'+data.gambar+'">'; 
+                    }
+                    $("#preview").html(html);
+                });
+
+            });
+
             // When button delete on click
             $("body").on("click",".btnDelete", function() {
                 var product_id = $(this).data('id');
+                var product_name = $(this).data('name');
 
-                $.ajax({
-                    url: "{{ route('produk.index') }}" + '/delete'+ '/' + product_id + '/',
-                    type: 'GET',
-                    success: function(message) {
-                        table.ajax.reload();
+                const swalWithBootstrapButtons = Swal.mixin({
+                    buttonsStyling: true,
+                    confirmButtonColor: "#28a745",
+                    cancelButtonColor: "#e74a3b"
+                });
+
+                swalWithBootstrapButtons.fire({
+                    title: 'Anda ingin menghapus produk <br> '+product_name+' ?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak',
+                    reverseButtons: true
+                })
+                .then(result => {
+                    if(result.value){
+                        $.ajax({
+                            url: "{{ route('produk.index') }}" + '/delete'+ '/' + product_id + '/',
+                            type: 'GET',
+                            success: function(message) {
+                                table.ajax.reload();
+                                Swal.fire({
+                                    position: 'top',
+                                    icon: 'success',
+                                    title: message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            }
+                        });
+                    } else if(result.dismiss == Swal.DismissReason.cancel){
                         Swal.fire({
                             position: 'top',
-                            icon: 'success',
-                            title: message,
+                            icon: 'error',
+                            title: 'Proses penghapusan data produk dibatalkan',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2000
                         });
                     }
                 })
+
+                
             });
 
         });

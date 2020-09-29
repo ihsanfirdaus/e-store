@@ -48,6 +48,8 @@
 
             // When button add on click
             $("#btnAdd").on("click", function() {
+                $("#nama").val('');
+                $("#kategori_id").val('');
                 $("#process").val('create');
                 $("#modal-success").modal('show');
                 $(".modal-title").html("Tambah Kategori");
