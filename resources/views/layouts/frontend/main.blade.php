@@ -1,58 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-	<title>E-STORE - @stack('title')</title>
-
-	<!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
-
-	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.min.css')}}" />
-
-	<!-- Slick -->
-	<link type="text/css" rel="stylesheet" href="{{ asset('assets/frontend/css/slick.css')}}" />
-	<link type="text/css" rel="stylesheet" href="{{ asset('assets/frontend/css/slick-theme.css')}}" />
-
-	<!-- nouislider -->
-	<link type="text/css" rel="stylesheet" href="{{ asset('assets/frontend/css/nouislider.min.css')}}" />
-
-	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="{{ asset('assets/frontend/css/font-awesome.min.css')}}">
-
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="{{ asset('assets/frontend/css/style.css')}}" />
-
-	<link rel="stylesheet" href="{{ asset('assets/frontend/css/custom.css') }}">
+<title>E-STORE - Free Shoping Forever</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="E-STORE shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/bootstrap4/bootstrap.min.css') }}">
+<link href="{{ asset('assets/frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css') }}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/plugins/OwlCarousel2-2.2.1/animate.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/plugins/slick-1.8.0/slick.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/main_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/responsive.css') }}">
 
 </head>
 
 <body>
-	<!-- HEADER -->
-	@include('layouts.frontend.header')
-	<!-- /HEADER -->
 
-	<!-- CONTENT -->
-	@yield('content')
-	<!-- /CONTENT -->
+<div class="super_container">
 	
-	<!-- FOOTER -->
+	<!-- Header -->
+	
+	@include('layouts.frontend.header')
+
+	<!-- /Header -->
+	
+	@yield('content')
+
+	<!-- Footer -->
+
 	@include('layouts.frontend.footer')
-	<!-- /FOOTER -->
 
-	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
+	<!-- /Footer -->
 
+	<!-- Copyright -->
+
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					
+					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+						<div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</div>
+						<div class="logos ml-sm-auto">
+							<ul class="logos_list">
+								<li><a href="#"><img src="{{ asset('assets/frontend/images/logos_1.png') }}" alt=""></a></li>
+								<li><a href="#"><img src="{{ asset('assets/frontend/images/logos_2.png') }}" alt=""></a></li>
+								<li><a href="#"><img src="{{ asset('assets/frontend/images/logos_3.png') }}" alt=""></a></li>
+								<li><a href="#"><img src="{{ asset('assets/frontend/images/logos_4.png') }}" alt=""></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="{{ asset('assets/frontend/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/styles/bootstrap4/popper.js') }}"></script>
+<script src="{{ asset('assets/frontend/styles/bootstrap4/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/greensock/TweenMax.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/greensock/TimelineMax.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/greensock/animation.gsap.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/greensock/ScrollToPlugin.min.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/slick-1.8.0/slick.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/easing/easing.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
 </body>
 
 </html>

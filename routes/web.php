@@ -39,7 +39,7 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::get('/session-login', 'Auth\SessionLoginController@sessionLogin')->name('session.login');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     //DASHBOARD
     Route::get('/dashboard', 'Backend\DashboardController@index')->name('admin.dashboard');
     // KATEGORI
