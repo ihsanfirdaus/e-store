@@ -17,16 +17,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-// Route::get('/send-notification',function() {
-//     Auth::user()->notify(new TaskCompleted);
-//     return view('home');
-// });
-
-// Route::get('/markAsRead',function() {
-//     auth()->user()->unreadNotifications->markAsRead();
-//     return redirect()->back();
-// });
-
 Route::get('/layouts', function () {
     return view('layouts.frontend.main');
 });

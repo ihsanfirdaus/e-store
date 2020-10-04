@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.frontend.main')
 
 @section('content')
-<div class="container">
+<div class="container mt-4 mb-4">
     @if ($message = Session::get('error'))
       <div class="alert alert-danger alert-block">
         <button type="button" class="close" data-dismiss="alert">×</button> 
@@ -11,8 +11,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
+                <div class="card-header">
+                    <h3><i class="fa fa-sign-in-alt"></i> Sign in</h3>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -50,7 +51,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
@@ -60,7 +61,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Sign in') }}
                                 </button>
 
                                 @if (Route::has('password.request'))

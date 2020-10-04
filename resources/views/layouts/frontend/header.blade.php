@@ -9,30 +9,23 @@
                     <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('assets/frontend/images/phone.png') }}" alt=""></div>+38 068 005 3570</div>
                     <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('assets/frontend/images/mail.png') }}" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
                     <div class="top_bar_content ml-auto">
-                        <div class="top_bar_menu">
-                            <ul class="standard_dropdown top_bar_dropdown">
-                                <li>
-                                    <a href="#">English<i class="fas fa-chevron-down"></i></a>
-                                    <ul>
-                                        <li><a href="#">Italian</a></li>
-                                        <li><a href="#">Spanish</a></li>
-                                        <li><a href="#">Japanese</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
-                                    <ul>
-                                        <li><a href="#">EUR Euro</a></li>
-                                        <li><a href="#">GBP British Pound</a></li>
-                                        <li><a href="#">JPY Japanese Yen</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="top_bar_user">
                             <div class="user_icon"><img src="{{ asset('assets/frontend/images/user.svg') }}" alt=""></div>
-                            <div><a href="{{ url('/register') }}">Register</a></div>
-                            <div><a href="{{ url('/login') }}">Sign in</a></div>
+                            @guest
+                                <div><a href="{{ url('/register') }}">Register</a></div>
+                                <div><a href="{{ url('/login') }}">Sign in</a></div>
+                            @else
+                                <div><a href="#">{{ Auth::user()->username }}</a></div>
+                                <div><a href="{{ route('logout') }}" 
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out-alt"></i> Sign out</a>
+                                    <!-- -->
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -122,44 +115,9 @@
 
                         <!-- Categories Menu -->
 
-                        <div class="cat_menu_container">
-                            <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
-                                <div class="cat_burger"><span></span><span></span><span></span></div>
-                                <div class="cat_menu_text">categories</div>
-                            </div>
-
-                            <ul class="cat_menu">
-                                <li><a href="#">Computers & Laptops <i class="fas fa-chevron-right ml-auto"></i></a></li>
-                                <li><a href="#">Cameras & Photos<i class="fas fa-chevron-right"></i></a></li>
-                                <li class="hassubs">
-                                    <a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
-                                    <ul>
-                                        <li class="hassubs">
-                                            <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-                                            <ul>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Smartphones & Tablets<i class="fas fa-chevron-right"></i></a></li>
-                                <li><a href="#">TV & Audio<i class="fas fa-chevron-right"></i></a></li>
-                                <li><a href="#">Gadgets<i class="fas fa-chevron-right"></i></a></li>
-                                <li><a href="#">Car Electronics<i class="fas fa-chevron-right"></i></a></li>
-                                <li><a href="#">Video Games & Consoles<i class="fas fa-chevron-right"></i></a></li>
-                                <li><a href="#">Accessories<i class="fas fa-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
-
                         <!-- Main Nav Menu -->
 
-                        <div class="main_nav_menu ml-auto">
+                        <div class="main_nav_menu">
                             <ul class="standard_dropdown main_nav_dropdown">
                                 <li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
                                 <li class="hassubs">
@@ -213,7 +171,7 @@
 
                         <!-- Menu Trigger -->
 
-                        <div class="menu_trigger_container ml-auto">
+                        <div class="menu_trigger_container">
                             <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
                                 <div class="menu_burger">
                                     <div class="menu_trigger_text">menu</div>
