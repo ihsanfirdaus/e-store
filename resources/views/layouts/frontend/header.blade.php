@@ -13,7 +13,7 @@
                             <div class="user_icon"><img src="{{ asset('assets/frontend/images/user.svg') }}" alt=""></div>
                             @guest
                                 <div><a href="{{ url('/register') }}">Register</a></div>
-                                <div><a href="{{ url('/login') }}">Sign in</a></div>
+                                <div><a href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-sign-in-alt"></i> &nbsp;Sign in</a></div>
                             @else
                                 <div><a href="#">{{ Auth::user()->username }}</a></div>
                                 <div><a href="{{ route('logout') }}" 

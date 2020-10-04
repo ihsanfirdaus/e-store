@@ -1,4 +1,4 @@
-@extends('layouts.frontend.main')
+{{-- @extends('layouts.frontend.main')
 
 @section('content')
 <div class="container mt-4 mb-4">
@@ -77,4 +77,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}
