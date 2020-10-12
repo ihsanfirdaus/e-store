@@ -52,12 +52,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'no_hp' => ['required', 'string', 'max:13'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
             'username.unique' => 'Username ini sudah terdaftar',
             'email.unique' => 'Email ini sudah terdaftar',
-            'no_hp.max' => 'No HP tidak boleh lebih dari 13 karakter',
             'password.min' => 'Password tidak boleh kurang dari 8 karakter',
             'password.confirmed' => 'Password Konfirmasi tidak sama'
         ]);
