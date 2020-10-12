@@ -216,6 +216,15 @@
                         });
                     }
                 })
+                
+                //UploadFileWithPreview
+                var upload = new FileUploadWithPreview('myUploadMultiple', {
+                    showDeleteButtonOnImages: true,
+                    text: {
+                        chooseFile: 'Pilih File ...',
+                        browse: 'Browse',
+                    },            
+                })
 
                 
             });

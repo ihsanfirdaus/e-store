@@ -22,6 +22,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/') }}" class="nav-link">
+              <i class="nav-icon fa fa-home"></i>
+              <p>
+                Frontend
+              </p>
+            </a>
+          </li>
           <li class="nav-header">MENU UTAMA</li>
           <li class="nav-item">
             <a href="{{ url('/admin/kategori') }}" class="nav-link {{ request()->is('admin/kategori') ? 'active' : '' }}">

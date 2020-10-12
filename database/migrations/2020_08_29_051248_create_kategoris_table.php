@@ -17,6 +17,7 @@ class CreateKategorisTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('slug');
+            $table->string('icon');
             $table->timestamps();
         });
     }

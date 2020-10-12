@@ -15,9 +15,20 @@
                     <label for="nama" class="control-label">Nama Kategori</label>
                     <input type="text" name="nama" id="nama" class="form-control" autofocus>
                 </div>
+                <div class="form-group">
+                  <div class="custom-file-container" data-upload-id="myUpload">
+                    <label>Upload Icon <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">&times;</a></label>
+                    <label class="custom-file-container__custom-file">
+                        <input type="file" class="custom-file-container__custom-file__custom-file-input" id="customFile" accept="image/*" aria-label="Choose File">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                        <span class="custom-file-container__custom-file__custom-file-control"></span>
+                    </label>
+                    <div class="custom-file-container__image-preview"></div>
+                  </div>
+                </div>
             </div>
             <div class="modal-footer justify-content-between">
-            <button type="submit" class="btn btn-success" id="btnSave">Simpan</button>
+            <button type="submit" class="btn btn-success" id="btnSave"><i class="fa fa-check"></i> &nbsp;Simpan</button>
             </div>
         </form>
       </div>

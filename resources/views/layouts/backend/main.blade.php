@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/file-upload-with-preview/4.0.8/file-upload-with-preview.min.css" integrity="sha512-joKDvh+eAWoVNKsL6T1spjb9TUTVLKzp9kD+BsfkKmy3RiwKlBK2A0fqSBmPOG0RW9jTvpNDjkX0Z02d3A6jbA==" crossorigin="anonymous" />
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/backend/dist/css/adminlte.min.css') }}">
@@ -84,6 +85,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script src="{{ asset('assets/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('assets/backend/plugins/select2/js/select2.full.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/file-upload-with-preview/4.0.8/file-upload-with-preview.min.js" integrity="sha512-7pDDD0KvICgtvzZt+f0fJjQTcMlQUJPjlB4lg1PcacB9a9YnSfGIvH5AjWhu0WlA6YoHRBdATWZVG+wwaeQ8oQ==" crossorigin="anonymous"></script>
   <script src="{{ asset('assets/backend/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
   <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>

@@ -1,7 +1,6 @@
 <header class="header">
 
     <!-- Top Bar -->
-
     <div class="top_bar">
         <div class="container">
             <div class="row">
@@ -12,10 +11,14 @@
                         <div class="top_bar_user">
                             <div class="user_icon"><img src="{{ asset('assets/frontend/images/user.svg') }}" alt=""></div>
                             @guest
-                                <div><a href="{{ url('/register') }}">Register</a></div>
-                                <div><a href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-sign-in-alt"></i> &nbsp;Sign in</a></div>
+                                <div><a href="#" data-toggle="modal" data-target="#modalRegister">Register</a></div>
+                                <div><a href="#" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-sign-in-alt"></i> &nbsp;Sign in</a></div>
                             @else
-                                <div><a href="#">{{ Auth::user()->username }}</a></div>
+                                @if (\App\Components\Session::isAdmin())
+                                    <div><a href="{{ url('/admin/dashboard') }}">Admin (Dashboard)</a></div>
+                                @else
+                                    <div><a href="#">{{ Auth::user()->username }}</a></div>
+                                @endif
                                 <div><a href="{{ route('logout') }}" 
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
@@ -28,6 +31,16 @@
                             @endguest
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    @if ($message = Session::get('info-status'))
+                    <div class="alert alert-info alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                        <strong><i class="fa fa-info-circle"></i> &nbsp;{{ $message }} <a href="">disini</a> untuk konfirmasi akun anda.</strong>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>		

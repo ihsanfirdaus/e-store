@@ -25,7 +25,6 @@
 	<!-- Header -->
 	
 	@include('layouts.frontend.header')
-
 	<!-- /Header -->
 	
 	@yield('content')
@@ -63,78 +62,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 </div>
 <!-- Modal Login -->
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLongTitle">Sign In</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-			<form method="POST" action="{{ route('login') }}">
-				@csrf
-
-				<div class="form-group row">
-					<label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-					<div class="col-md-6">
-						<input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autocomplete="username" autofocus>
-
-						@error('username')
-							<span class="invalid-feedback" role="alert">
-								<strong>{{ $message }}</strong>
-							</span>
-						@enderror
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-					<div class="col-md-6">
-						<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
-
-						@error('password')
-							<span class="invalid-feedback" role="alert">
-								<strong>{{ $message }}</strong>
-							</span>
-						@enderror
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<div class="col-md-6 offset-md-4">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-							<label for="remember">
-								{{ __('Remember Me') }}
-							</label>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row mb-0">
-					<div class="col-md-8 offset-md-4">
-						<button type="submit" class="btn btn-primary">
-							{{ __('Sign in') }}
-						</button>
-
-						@if (Route::has('password.request'))
-							<a class="btn btn-link" href="{{ route('password.request') }}">
-								{{ __('Forgot Your Password?') }}
-							</a>
-						@endif
-					</div>
-				</div>
-			</form>
-		</div>
-	  </div>
-	</div>
-</div>
+@include('auth.login')
+<!-- Modal Register -->
+@include('auth.register')
 
 <script src="{{ asset('assets/frontend/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/styles/bootstrap4/popper.js') }}"></script>
@@ -147,7 +77,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('assets/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ asset('assets/frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('assets/frontend/plugins/easing/easing.js') }}"></script>
+<script src="{{ asset('assets/frontend/plugins/jquery-mask/jquery.mask.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
+<script>
+	$(document).ready(function() {
+		$('#no_hp').mask('0000-0000-00000');
+	})
+</script>
 </body>
-
 </html>

@@ -141,6 +141,15 @@
                 })
             });
 
+            //UploadFileWithPreview
+            var upload = new FileUploadWithPreview('myUpload', {
+                showDeleteButtonOnImages: true,
+                text: {
+                    chooseFile: 'Pilih File ...',
+                    browse: 'Browse',
+                },            
+            })
+
         })
     </script>
 @endsection
