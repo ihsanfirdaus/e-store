@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
             'id_user_role' => 1,
             'status_akun' => 1
         ]);
+
+        // username : admin
+        // password : admin
     }
 }
