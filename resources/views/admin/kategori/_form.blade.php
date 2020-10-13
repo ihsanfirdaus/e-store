@@ -15,15 +15,13 @@
                     <label for="nama" class="control-label">Nama Kategori</label>
                     <input type="text" name="nama" id="nama" class="form-control" autofocus>
                 </div>
-                <div class="form-group">
-                  <div class="custom-file-container" data-upload-id="myUpload">
-                    <label>Upload Icon <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">&times;</a></label>
-                    <label class="custom-file-container__custom-file">
-                        <input type="file" class="custom-file-container__custom-file__custom-file-input" id="customFile" accept="image/*" aria-label="Choose File">
-                        <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                        <span class="custom-file-container__custom-file__custom-file-control"></span>
-                    </label>
-                    <div class="custom-file-container__image-preview"></div>
+                <div class="center">
+                  <div class="form-input">
+                    <label for="file-ip-1">Upload Gambar</label>
+                    <input type="file" id="file-ip-1" name="gambar" accept="image/*" onchange="showPreview(event);">
+                    <div class="preview">
+                      <img id="file-ip-1-preview">
+                    </div>
                   </div>
                 </div>
             </div>
@@ -36,3 +34,13 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script>
+  function showPreview(event){
+      if(event.target.files.length > 0){
+          var src = URL.createObjectURL(event.target.files[0]);
+          var preview = document.getElementById("file-ip-1-preview");
+          preview.src = src;
+          preview.style.display = "block";
+      }
+  }
+</script>

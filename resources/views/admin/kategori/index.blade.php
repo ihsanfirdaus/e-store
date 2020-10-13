@@ -38,7 +38,7 @@
 </div>
 
 <!-- Include Modal -->
-    @include('admin.kategori._form')
+@include('admin.kategori._form')
 <!-- /Include Modal -->
 @endsection
 
@@ -141,14 +141,7 @@
                 })
             });
 
-            //UploadFileWithPreview
-            var upload = new FileUploadWithPreview('myUpload', {
-                showDeleteButtonOnImages: true,
-                text: {
-                    chooseFile: 'Pilih File ...',
-                    browse: 'Browse',
-                },            
-            })
+            
 
         })
     </script>

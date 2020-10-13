@@ -143,6 +143,18 @@
                             showConfirmButton: false,
                             timer: 2000
                         });
+                    },
+                    error: function(message){
+                        console.log(message);
+                        // $("#modal-success").modal('show');
+                        // table.ajax.reload();
+                        // Swal.fire({
+                        //     position: 'top',
+                        //     icon: 'warning',
+                        //     title: message,
+                        //     showConfirmButton: false,
+                        //     timer: 2000
+                        // });
                     }
                 })
             });

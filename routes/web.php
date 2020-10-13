@@ -17,10 +17,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/layouts', function () {
-    return view('layouts.frontend.main');
-});
-
 Route::group(['prefix' => 'user'], function () {
     Route::get('/profil', 'Frontend\UserController@profilUser');
     Route::get('/aktivasi-akun', 'Frontend\UserController@formAktivasiAkun');
