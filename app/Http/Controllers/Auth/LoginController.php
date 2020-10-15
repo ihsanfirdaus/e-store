@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/session-login';
+    protected $redirectTo = RouteServiceProvider::SESSION_LOGIN;
 
     /**
      * Create a new controller instance.
@@ -109,7 +109,7 @@ class LoginController extends Controller
     {
         if ($user->status_akun == 0) {
             $this->logout($request);
-            return back()->withInput($request->all())->with('info-status','Status akun anda belum aktif, silahkan klik');
+            return back()->withInput($request->all())->with('info','Status akun anda belum aktif');
         }
         return redirect()->intended($this->redirectPath());
     }

@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function formAktivasiAkun(Request $request)
     {
-       return view('auth/aktivasi-akun');
+       return view('user/aktivasi-akun');
     }
 
     public function aktivasiAkun(Request $request)
@@ -36,7 +36,7 @@ class UserController extends Controller
         $user->status_akun = 1;
 
         if($user->save()) {
-            return redirect(URL::previous())->with('success','Akun anda telah diaktifkan, Silahkan habiskan uang anda :)');
+            return redirect(URL::previous())->with('success','Akun anda telah diaktifkan');
         }else{
             return redirect(URL::previous())->withInput($request->all());
         }

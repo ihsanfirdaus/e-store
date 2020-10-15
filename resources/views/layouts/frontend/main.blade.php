@@ -23,16 +23,15 @@
 <div class="super_container">
 	
 	<!-- Header -->
-	
 	@include('layouts.frontend.header')
 	<!-- /Header -->
 	
+	<!-- Content -->
 	@yield('content')
+	<!-- /Content -->
 
 	<!-- Footer -->
-
 	@include('layouts.frontend.footer')
-
 	<!-- /Footer -->
 
 	<!-- Copyright -->
@@ -61,10 +60,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 </div>
-<!-- Modal Login -->
-@include('auth.login')
-<!-- Modal Register -->
-@include('auth.register')
 
 <script src="{{ asset('assets/frontend/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/styles/bootstrap4/popper.js') }}"></script>
@@ -77,7 +72,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('assets/frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ asset('assets/frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('assets/frontend/plugins/easing/easing.js') }}"></script>
-<script src="{{ asset('assets/frontend/plugins/jquery-mask/jquery.mask.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
 <script>
 	$(document).ready(function() {

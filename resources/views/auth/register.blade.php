@@ -1,66 +1,91 @@
-<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h3 class="modal-title" id="exampleModalLongTitle">Register</h3>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-			<form method="POST" action="{{ route('register') }}">
-				@csrf
-				<div class="row">
-                    <div class="col-lg-6 form-group">
-                        <label for="username" class="control-label">Username</label>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" autocomplete="username" autofocus>
+@extends('auth.layout')
 
-                        @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+@section('title','Register')
+    
+@section('content')
+<div class="custom-form" style="width: 50em">
+    <div class="card" style="box-shadow: 5px 10px rgba(0,0,0,.125);">
+        <div class="card-header" style="background-color: white">
+            <div class="text-center">
+                <h3 style="font-weight: 600"><span style="color: #007bff">E-</span><span style="color: #000">STORE</span></h3>
+                <strong>~ Register ~</strong>
+            </div>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
+                <!-- GET Error Message -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul style="margin-bottom: 0;list-style: none">
+                            @foreach ($errors->all() as $error)
+                                <li><i class="fa fa-exclamation-triangle"></i>&nbsp; {{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="col-lg-6 form-group">
-                        <label for="email" class="control-label">E-Mail</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                @endif
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="username" class="control-label">Username</label>
+                            <div class="input-icon-wrap">
+                                <span class="input-icon"><span class="fa fa-user"></span></span>
+                                <input type="text" name="username" class="form-control input-with-icon @error('username') is-invalid @enderror" value="{{ old('username') }}" autofocus required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6 form-group">
-                        <label for="no_hp" class="control-label">No HP (Handphone)</label>
-                        <input id="no_hp" type="text" class="form-control @error('no_hp') is-invalid @enderror" name="no_hp" value="{{ old('no_hp') }}" autocomplete="no_hp">
-
-                        @error('no_hp')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="col-lg-6 form-group">
-                        <label for="password" class="control-label">Password</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="col-lg-6 form-group">
-                        <label for="password_confirmation" class="control-label">Password (Konfirmasi)</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="username" class="control-label">E-Mail</label>
+                            <div class="input-icon-wrap">
+                                <span class="input-icon"><span class="fa fa-envelope"></span></span>
+                                <input type="email" name="email" class="form-control input-with-icon @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Register</button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="username" class="control-label">No HP</label>
+                            <div class="input-icon-wrap">
+                                <span class="input-icon"><span class="fa fa-phone "></span></span>
+                                <input type="text" id="no_hp" name="no_hp" class="form-control input-with-icon @error('no_hp') is-invalid @enderror" value="{{ old('no_hp') }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <div class="input-icon-wrap">
+                                <span class="input-icon"><span class="fa fa-lock"></span></span>
+                                <input type="password" name="password" class="form-control input-with-icon @error('password') is-invalid @enderror" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-			</form>
-		</div>
-	  </div>
-	</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password (Konfirmasi)</label>
+                            <div class="input-icon-wrap">
+                                <span class="input-icon"><span class="fa fa-lock"></span></span>
+                                <input type="password" name="password_confirmation" class="form-control input-with-icon" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-success" style="margin-top: 30px" type="submit"><i class="fa fa-arrow-circle-right"></i> &nbsp;Register</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <strong>Kamu sudah mempunyai akun ? Silahkan klik <a href="{{ url('login') }}">disini</a> untuk masuk</strong>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+@endsection

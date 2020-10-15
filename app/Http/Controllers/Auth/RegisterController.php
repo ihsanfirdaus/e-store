@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/session-login';
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -52,11 +54,11 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed'],
         ], [
             'username.unique' => 'Username ini sudah terdaftar',
+            'email.required' => 'Email tidak boleh kosong',
             'email.unique' => 'Email ini sudah terdaftar',
-            'password.min' => 'Password tidak boleh kurang dari 8 karakter',
             'password.confirmed' => 'Password Konfirmasi tidak sama'
         ]);
     }
@@ -76,5 +78,20 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'id_user_role' => 2
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($this->create($request->all())));
+
+        return redirect()->intended($this->redirectPath())->with('success','Berhasil mendaftarkan akun');
     }
 }
