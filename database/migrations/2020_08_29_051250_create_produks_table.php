@@ -19,8 +19,6 @@ class CreateProduksTable extends Migration
             $table->string('slug');
             $table->unsignedBigInteger('id_kategori');
             $table->text('deskripsi');
-            $table->string('gambar');
-            $table->string('warna');
             $table->string('harga');
             $table->integer('berat');
             $table->timestamps();

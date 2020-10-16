@@ -47,15 +47,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="username" class="control-label">No HP</label>
-                            <div class="input-icon-wrap">
-                                <span class="input-icon"><span class="fa fa-phone "></span></span>
-                                <input type="text" id="no_hp" name="no_hp" class="form-control input-with-icon @error('no_hp') is-invalid @enderror" value="{{ old('no_hp') }}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <label for="password" class="control-label">Password</label>
                             <div class="input-icon-wrap">
                                 <span class="input-icon"><span class="fa fa-lock"></span></span>
@@ -63,8 +54,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="password" class="control-label">Password (Konfirmasi)</label>
@@ -76,11 +65,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <button class="btn btn-success" style="margin-top: 30px" type="submit"><i class="fa fa-arrow-circle-right"></i> &nbsp;Register</button>
+                            <button class="btn btn-success" type="submit"><i class="fa fa-arrow-circle-right"></i> &nbsp;Register</button>
                         </div>
                     </div>
                 </div>
-                <br>
                 <div class="d-flex justify-content-center">
                     <strong>Kamu sudah mempunyai akun ? Silahkan klik <a href="{{ url('login') }}">disini</a> untuk masuk</strong>
                 </div>

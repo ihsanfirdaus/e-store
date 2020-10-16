@@ -46,6 +46,8 @@ class KategoriController extends Controller
      */
     public function store(Request $req)
     {        
+        $icon = $req->file('icon');
+
         if($req->post('process') == 'create'){
 
             $model = new Kategori();
@@ -59,6 +61,14 @@ class KategoriController extends Controller
         }
         $model->nama = $req->nama;
         $model->slug = Str::slug($req->nama.'-');
+        
+        if($icon == null){
+            // 
+        }else{
+            $filename = date('d-M-Y').'_'.$icon->getClientOriginalName();
+            $icon->move(public_path('/assets/gambar/kategori/'),$filename);
+            $model->icon = $filename;
+        }
         
         if($model->save()){
             return response()->json($message);

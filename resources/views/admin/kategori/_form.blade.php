@@ -6,7 +6,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
         </div>
-        <form id="formCategory">
+        <form id="formCategory" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <input type="hidden" name="process" id="process">
@@ -17,8 +17,8 @@
                 </div>
                 <div class="center">
                   <div class="form-input">
-                    <label for="file-ip-1">Upload Gambar</label>
-                    <input type="file" id="file-ip-1" name="gambar" accept="image/*" onchange="showPreview(event);">
+                    <label for="file-ip-1">Upload Icon</label>
+                    <input type="file" id="file-ip-1" name="icon" accept="image/*" onchange="showPreview(event);">
                     <div class="preview">
                       <img id="file-ip-1-preview">
                     </div>

@@ -23,6 +23,7 @@
                 <div class="card-body">
                     <table class="table table-bordered" id="datatable">
                         <thead>
+                            <th style="text-align: center">Icon</th>
                             <th style="text-align: center">Nama</th>
                             <th style="text-align: center">Slug</th>
                             <th style="text-align: center">Aksi</th>
@@ -52,6 +53,8 @@
                 $("#kategori_id").val('');
                 $("#process").val('create');
                 $("#modal-success").modal('show');
+                $("#file-ip-1").val('');
+                $("#file-ip-1-preview").html('');
                 $(".modal-title").html("Tambah Kategori");
             });
 
@@ -62,6 +65,14 @@
                     "dataSrc": ""
                 },
                 "columns": [
+                    {
+                        "orderable": false,
+                        mRender: function(data, type, row) {
+                            return '<div class="hover_img">'+
+                                        '<a href="javascript:void(0)">Lihat Icon<span><img src="{{ asset('assets/gambar/kategori') }}'+'/'+row.icon+'" alt="image" height="100" /></span></a>'
+                                   '</div>';
+                        }
+                    },
                     {"data" : "nama"},
                     {"data" : "slug"},
                     {

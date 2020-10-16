@@ -21,6 +21,24 @@
   <link rel="stylesheet" href="{{ asset('assets/backend/dist/css/adminlte.min.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('assets/backend/dist/css/style.css') }}">
+  <style>
+    .hover_img a { 
+      position:relative;
+    }
+    .hover_img a span { 
+      position:absolute;
+      display:none;
+      z-index:99;
+    }
+    .hover_img a img{
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #888;
+    }
+    .hover_img a:hover span { 
+      display:block;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
